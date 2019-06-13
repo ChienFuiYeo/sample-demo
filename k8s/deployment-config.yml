@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-demo
+  labels:
+    app: sample-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sample-demo
+  template:
+    metadata:
+      labels:
+        app: sample-demo
+    spec:
+      containers:
+        - name: sample-demo
+          image: 0.0.0.0:5000/sample-demo:${git.commit.id.abbrev}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PROFILES
+              value: "-Dspring.profiles.active=sg"
+            - name: REGION
+              value: "-Dregion=sg"
+            - name: JAR_FILE
+              value: "sample-demo.jar"
+          command: ["java", "$(PROFILES)", "$(REGION)", "-jar", "$(JAR_FILE)"]
+

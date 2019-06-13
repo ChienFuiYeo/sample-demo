@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component(Constant.COMPONENT_NAME_CREDIT_CHECK_LISTENER + "sg")
 public class CreditCheckListenerSg implements ICreditCheckListener {
 	@Override
-	public void onCreditCheck() {
-		System.out.println("Singapore Credit Check");
+	public String onCreditCheck() {
+		return "Singapore Credit Check";
 	}
 }
